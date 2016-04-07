@@ -12,8 +12,19 @@ def tail(path):
             yield line
 
 
+def grep(lines):
+    for line in lines:
+        if line.find('python') >= 0:
+            yield line
+
+
 if __name__ == '__main__':
     # to see sys log
-    # for i in tail('/var/log/syslog'):
-    for i in tail('page40.txt'):
+    # path = '/var/log/syslog'
+    path = 'page40.txt'
+
+    t = tail(path)
+    g = grep(t)
+
+    for i in g:
         print(i)
