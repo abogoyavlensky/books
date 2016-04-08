@@ -7,6 +7,8 @@
     :copyright: (c) 2016 by Rambler&Co.
 """
 
+__all__ = ['Typed', 'Forbidden']
+
 
 class Forbidden(Exception):
     """Not allowed method"""
