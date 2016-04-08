@@ -1,3 +1,13 @@
+"""
+    python_essential_reference.page138
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Example of closure.
+
+    :copyright: (c) 2016 by Rambler&Co.
+"""
+
+
 def foo(line):
     def print_line():
         print line

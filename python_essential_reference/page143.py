@@ -1,3 +1,13 @@
+"""
+    python_essential_reference.page143
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Example of coroutines implementing with decorators.
+
+    :copyright: (c) 2016 by Rambler&Co.
+"""
+
+
 def coro(func):
 
     def start(*args, **kwargs):

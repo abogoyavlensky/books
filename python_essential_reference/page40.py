@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+    python_essential_reference.page40
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Simple example for generators by implementing tail -f and grep tools.
+
+    :copyright: (c) 2016 by Rambler&Co.
+"""
+
 import time
 
 

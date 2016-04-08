@@ -1,3 +1,13 @@
+"""
+    python_essential_reference.page141
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Example of decorators.
+
+    :copyright: (c) 2016 by Rambler&Co.
+"""
+
+
 def trace(func):
 
     def callf(*args, **kwargs):
