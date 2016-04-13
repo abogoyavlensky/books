@@ -65,5 +65,6 @@ if __name__ == '__main__':
     print(foo.line)
     print(foo)
 
+    # To raise exception
     #foo.line = 10
-    del foo.number
+    # del foo.number
