@@ -16,4 +16,6 @@ if __name__ == '__main__':
     first = timeit('math.sqrt(2.0)', 'import math')
     second = timeit('sqrt(2.0)', 'from math import sqrt')
     increase = first / second
+    print(first)
+    print(second)
     print('Speed increase: {:0.2f}'.format(increase))
