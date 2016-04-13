@@ -19,3 +19,8 @@ if __name__ == '__main__':
     print(first)
     print(second)
     print('Speed increase: {:0.2f}'.format(increase))
+
+    print(timeit('s.appendleft(37)',
+                 'import collections; s = collections.deque()'))
+    print(timeit('s.insert(0, 37)',
+                 'import collections; s = []'))
