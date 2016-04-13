@@ -15,6 +15,7 @@ class Forbidden(Exception):
 
 
 class TypedProperty(object):
+    """Descriptor"""
 
     def __init__(self, t, default=None):
         self.name = None
@@ -35,6 +36,7 @@ class TypedProperty(object):
 
 
 class TypedMeta(type):
+    """Metaclass"""
 
     def __new__(cls, name, basic, class_dict):
         slots = []
@@ -47,6 +49,7 @@ class TypedMeta(type):
 
 
 class Typed(object):
+    """New type based on metaclass"""
     __metaclass__ = TypedMeta
 
 
