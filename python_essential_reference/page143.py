@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     python_essential_reference.page143
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
