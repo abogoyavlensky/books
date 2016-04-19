@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    path.to.file
-    ~~~~~~~~~~~~
+    python_essential_reference.page499
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    Short description.
+    Split file name.
 
     :copyright: (c) 2016 by Rambler&Co.
 """
