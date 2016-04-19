@@ -13,7 +13,7 @@
 from operator import mul
 
 
-class Map:
+class Map(object):
     def __init__(self, func):
         self.func = func
 
@@ -22,7 +22,7 @@ class Map:
             yield self.func(obj)
 
 
-class Filter:
+class Filter(object):
     def __init__(self, func):
         self.func = func
 
@@ -35,7 +35,7 @@ class Filter:
 _SENTINEL = object()
 
 
-class Reduce:
+class Reduce(object):
     def __init__(self, func, start=_SENTINEL):
         self.func = func
         self.start = start
