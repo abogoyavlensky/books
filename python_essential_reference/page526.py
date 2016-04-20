@@ -2,7 +2,7 @@
 """
     python_essential_reference.page524
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Queue.
+    Queue with signal label.
 
     :copyright: (c) 2016 by Rambler&Co.
 """
@@ -15,9 +15,12 @@ import time
 def consumer(input_q):
     while True:
         item = input_q.get()
+        if item is None:
+            break
+
         print(item)
-        time.sleep(2)
-        # print(input_q.qsize())
+
+        time.sleep(1)
         input_q.task_done()
 
 
@@ -33,11 +36,9 @@ if __name__ == '__main__':
     p.daemon = True
     p.start()
 
-    p2 = multiprocessing.Process(target=consumer, args=(q,))
-    p2.daemon = True
-    p2.start()
-
     data = [1, 2, 3, 4, 5, 6]
     producer(data, q)
 
-    q.join()
+    q.put(None)
+
+    p.join()
