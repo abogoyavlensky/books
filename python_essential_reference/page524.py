@@ -16,7 +16,7 @@ def consumer(input_q):
     while True:
         item = input_q.get()
         print(item)
-        time.sleep(1)
+        time.sleep(2)
         # print(input_q.qsize())
         input_q.task_done()
 
@@ -29,11 +29,15 @@ def producer(sequence, input_q):
 if __name__ == '__main__':
     q = multiprocessing.JoinableQueue()
 
-    p = multiprocessing.Process(None, consumer, args=(q,))
+    p = multiprocessing.Process(target=consumer, args=(q,))
     p.daemon = True
     p.start()
 
-    data = [1, 2, 3, 4]
+    p2 = multiprocessing.Process(target=consumer, args=(q,))
+    p2.daemon = True
+    p2.start()
+
+    data = [1, 2, 3, 4, 5, 6]
     producer(data, q)
 
     q.join()
