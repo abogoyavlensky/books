@@ -17,4 +17,4 @@ if __name__ == '__main__':
     s.connect(('localhost', PORT))
     t = s.recv(1024)
     s.close()
-    print(u'Текущее время: {}'.format(t))
+    print(u'Текущее время: {}'.format(t.decode('ascii')))
