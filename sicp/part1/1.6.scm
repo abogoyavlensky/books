@@ -1,3 +1,3 @@
 (load "common/sqrt.scm")
 
-(print (sqrt 10))
+(print (sqrt 2))
