@@ -13,4 +13,4 @@
 
 (define (main) (max 4 6 3))
 
-(load "display.scm")
+(load "common/display.scm")

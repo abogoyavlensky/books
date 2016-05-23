@@ -7,4 +7,4 @@
 
 (define (main) (test 0 (p)))
 
-(load "display.scm")
+(load "common/display.scm")
