@@ -2,10 +2,15 @@
 (load "common/math.scm")
 
 (define (good_enough? guess x precise)
-  (>= precise (abs (- x (square guess)))))
+  (>= precise
+      (abs (- x 
+              (square guess)))))
 
 (define (improve guess x)
-  (/ (+ (/ x guess) guess) 2))
+  (/ (+ (/ x
+           guess)
+        guess)
+     2))
 
 (define (sqrt_iter guess x)
   (if (good_enough? guess x 0.0001)
