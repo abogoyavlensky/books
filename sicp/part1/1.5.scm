@@ -5,6 +5,4 @@
       0
       y))
 
-(define (main) (test 0 (p)))
-
-(load "common/display.scm")
+(print (test 0 (p)))

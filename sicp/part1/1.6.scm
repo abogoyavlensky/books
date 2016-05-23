@@ -1,5 +1,3 @@
-(load "common/utils.scm")
+(load "common/sqrt.scm")
 
-(define (main) (abs -10))
-
-(load "common/display.scm")
+(print (sqrt 10))

@@ -11,6 +11,4 @@
                     (sum y x)
                     (sum y z)))))
 
-(define (main) (max 4 6 3))
-
-(load "common/display.scm")
+(print (max 4 6 10))
