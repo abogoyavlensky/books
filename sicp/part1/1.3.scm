@@ -1,3 +1,4 @@
+;Вычисление суммы квадратов наибольших двух чисел из заданных трех чисел.
 (define (square x) (* x x))
 (define (sum x y) (+ (square x) (square y)))
 (define (>= x y) (or (> x y) (= x y)))

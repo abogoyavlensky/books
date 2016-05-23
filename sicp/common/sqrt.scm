@@ -1,3 +1,4 @@
+;Вычисление квадратного корня методом Ньютона.
 (load "common/math.scm")
 
 (define (good_enough? guess x precise)
