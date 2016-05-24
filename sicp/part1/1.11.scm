@@ -5,7 +5,7 @@
       (+ (f_rec (- n 1)) (f_rec (- n 2)) (f_rec (- n 3)))))
 
 
-;Итеративный про
+;Итеративный процесс.
 (define (f n)
   (define (iter a b c count)
     (if (< count 3)
