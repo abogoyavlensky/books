@@ -7,14 +7,16 @@
       (* n (factorial (- n 1)))))
 
 
+;Вычисление факториала линейно итеративным методом с помощью
+;рекурсивной процедуры.
 (define (factorial2 n)
-  (define (fact_iter result count)
+  (define (iter result count)
     (if (> count n)
         result
-        (fact_iter (* count result)
+        (iter (* count result)
                    (+ count 1))))
 
-  (fact_iter 1 1))
+  (iter 1 1))
 
 (print (factorial 6))
 (print (factorial2 6))
