@@ -8,8 +8,8 @@
         ((even? count)
          (fib-iter a
                    b
-                   (pp a b q p)
-                   (qq a b q p)
+                   (pp p q)
+                   (qq p q)
                    (/ count 2)))
          (else (fib-iter (+ (* b q) (* a q) (* a p))
                          (+ (* b p) (* a q))
@@ -18,22 +18,13 @@
                          (- count 1)))))
 
 
-(define (qq a b p q)
-  (/ (- (+ (* 2 b q)
-           (* 2 a p))
-        (* a q))
-     ((- (+ a b)
-         (* a a)))))
+(define (pp p q)
+  (+ (square p) (square q)))
 
-(define (pp a b p q)
-  (/ (- (+ (* 2 b p)
-           (* 2 a q))
-        (* a (qq a b p q)))
-     b))
+(define (qq p q)
+  (+ (* 2 p q) (square q)))
 
-;(print (fib 9)) ;34
-;(print (fib 10)) ;55
-;(print (fib 11)) ;89
-;(print (fib 12)) ;144
-
-(print (qq 10 10 10 10))
+(print (fib 9)) ;34
+(print (fib 10)) ;55
+(print (fib 11)) ;89
+(print (fib 12)) ;144
