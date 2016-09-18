@@ -6,7 +6,7 @@
 
 ;Нормальный порядок
 (gcd 206 40)
-(gcd 40 (remainder 206 40)) ; +1 : if b
+(gcd 40 (remainder 206 40)) ; +1 : вычисляется операция if b, где b в данном случае (remainder 206 40)
 (gcd (remainder 206 40) (remainder 40 (remainder 206 40))) ; +2 : if b
 (gcd (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40)))) ; +4 : if b
 (gcd (remainder (remainder 206 40) (remainder 40 (remainder 206 40))) (remainder (remainder 40 (remainder 206 40)) (remainder (remainder 206 40) (remainder 40 (remainder 206 40))))) ; +7 : if b
