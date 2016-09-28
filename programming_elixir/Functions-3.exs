@@ -7,10 +7,6 @@ end
 
 a = fn n -> fizzbuzz.({rem(n, 3), rem(n, 5), n}) end
 
-IO.puts a.(10)
-IO.puts a.(11)
-IO.puts a.(12)
-IO.puts a.(13)
-IO.puts a.(14)
-IO.puts a.(15)
-IO.puts a.(16)
+p = fn n -> IO.puts a.(n) end
+
+Enum.map 10..16, p
