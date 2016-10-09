@@ -8,4 +8,10 @@ defmodule MyEnum do
       all?(tail, fun)
     end
   end
+
+  def each([], _fun), do: :ok
+  def each([head | tail], fun) do
+    fun.(head)
+    each(tail, fun)
+  end
 end
