@@ -24,7 +24,15 @@ defmodule MyEnum do
     end
   end
 
-  def split(list, count), do: _split({[], list}, count)
+  def split(list, count) when count > 0, do: _split({[], list}, count)
+  def split(list, count) do
+     num = _len(list) + count
+     if num >= 0 do
+       _split({[], list}, num)
+     else
+       {[], list}
+     end
+   end
 
   defp _split(result = {_left , []}, _count), do: result
   defp _split(result = {_left , _right}, count) when count == 0, do: result
@@ -32,4 +40,7 @@ defmodule MyEnum do
     [head | tail] = right
     _split({left ++ [head], tail}, count - 1)
   end
+
+  defp _len([]), do: 0
+  defp _len([_head | tail]), do: 1 + _len(tail)
 end
