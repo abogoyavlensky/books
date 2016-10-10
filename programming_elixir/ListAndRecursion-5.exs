@@ -23,4 +23,13 @@ defmodule MyEnum do
       filter(tail, fun)
     end
   end
+
+  def split(list, count), do: _split({[], list}, count)
+
+  defp _split(result = {_left , []}, _count), do: result
+  defp _split(result = {_left , _right}, count) when count == 0, do: result
+  defp _split({left, right}, count) when count != 0 do
+    [head | tail] = right
+    _split({left ++ [head], tail}, count - 1)
+  end
 end
