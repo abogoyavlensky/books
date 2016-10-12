@@ -56,5 +56,4 @@ defmodule MyEnum do
   defp _take(_list, 0, _skip), do: []
   defp _take([_head | tail], count, skip) when skip > 0, do: _take(tail, count, skip - 1)
   defp _take([head | tail], count, skip), do: [head | _take(tail, count - 1, skip)]
-
 end
