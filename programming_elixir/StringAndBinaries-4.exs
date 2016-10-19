@@ -21,8 +21,7 @@ defmodule MyModule do
   defp _parse([?\s | tail], left, right, sign) do
     _parse(tail, left, right, sign)
   end
-  defp _parse([head | _], _, _, _)
-  when head in '+-*/' do
+  defp _parse([head | _], _, _, _) do
     raise "Invalid digit '#{[head]}'"
   end
 
