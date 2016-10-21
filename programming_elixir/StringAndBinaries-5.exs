@@ -1,7 +1,6 @@
 defmodule MyModule do
   def center(list) do
      len = Enum.max_by(list, &String.length/1) |> String.length
-    #  list |> Enum.each(_print(len))
      list |> Enum.each(_print(len))
   end
 
