@@ -18,7 +18,6 @@ defmodule MyModule do
       end
     end
   end
-
 end
 
 IO.inspect MyModule.count(MyModule.tax_rates, MyModule.orders)
