@@ -29,7 +29,6 @@ defmodule Taxes do
         line
       end
     end
-  end
 end
 
 # Taxes.count(Taxes.orders, Taxes.rates)
