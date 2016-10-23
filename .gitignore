@@ -65,3 +65,10 @@ target/
 
 # Elixir
 *.beam
+
+# .gitignore from mix by default
+/_build
+/cover
+/deps
+erl_crash.dump
+*.ez
