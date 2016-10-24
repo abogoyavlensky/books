@@ -9,8 +9,8 @@ defmodule Issues.CLI do
 
   def run(argv) do
     argv
-      |> parse_args(argv)
-      |> process
+    |> parse_args
+    |> process
   end
 
   @doc """
@@ -23,9 +23,10 @@ defmodule Issues.CLI do
       parse = OptionParser.parse(argv, switched: [help: :boolean],
                                        aliases: [h: :help])
       case parse do
-        { [help: true], _, _ } -> :help
-        { _, [user, project, count], _ } -> { user, project, String.to_integer(count) }
-        { _, [user, project], _ }-> { user, project, @default_count }
+        {[help: true], _, _} -> :help
+        {_, [user, project, count], _}
+        -> {user, project, String.to_integer(count)}
+        {_, [user, project], _} -> {user, project, @default_count}
         _ -> :help
       end
   end
@@ -37,7 +38,21 @@ defmodule Issues.CLI do
     System.halt(0)
   end
 
-  def process({ user, project, _count}) do
+  def process({user, project, _count}) do
     Issues.GithubIssues.fetch(user, project)
+    |> decode_response
+  end
+
+  def decode_response({:ok, body}) do
+      body
+  end
+  def decode_response({:error, reason}) do
+    {_, message} = List.keyfind(reason, "message", 0)
+    IO.puts "Error fetching from Github: #{message}"
+    System.halt(2)
+  end
+
+  def convert_to_list_of_maps(list) do
+    list |> Enum.map(&Enum.into(&1, Map.new))
   end
 end
