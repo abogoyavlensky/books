@@ -6,6 +6,10 @@ defmodule Issues.CLI do
   """
 
   @default_count 4
+  @delimiter "|"
+  @corner '+'
+  @line '-'
+
 
   def run(argv) do
     argv
@@ -74,7 +78,8 @@ defmodule Issues.CLI do
   end
 
   defp max_by_item(list, name) when is_binary(name) and is_list(list) do
-    list ++ [%{name => name}]
+    list
+    |> _get_list_to_check_length(name)
     |> Enum.map(&(&1[name]))
     |> Enum.max_by(&_length/1)
     |> _length
@@ -91,9 +96,17 @@ defmodule Issues.CLI do
   end
 
   defp _print_header(%{name: name, count: count}) do
-    String.ljust(name, count + 1)
+    name
+    |> _format_title
+    |> String.ljust(count + 1)
+    |> _join_delimiter
   end
+
+  defp _join_delimiter(word), do: word ++ @delimiter
 
   defp _format_title("number"), do: "#"
   defp _format_title(name), do: name
+
+  defp _get_list_to_check_length(list, name), do: list ++ [%{name => name}]
+  defp _get_list_to_check_length(list, "number"), do: list
 end
