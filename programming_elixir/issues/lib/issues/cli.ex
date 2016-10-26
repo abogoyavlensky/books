@@ -4,7 +4,7 @@ defmodule Issues.CLI do
   the various functions that end up generating a
   table of the last _n_ issues in a github project
   """
-  
+
   @default_count 4
 
   def run(argv) do
@@ -66,6 +66,34 @@ defmodule Issues.CLI do
   end
 
   def print_table_for_columns(list, columns) do
-
+    columns
+    |> Enum.map(&max_by_item(list, &1))
+    |> Enum.zip(columns)
+    |> Enum.map(&make_header_struct/1)
+    |> _print_table(list)
   end
+
+  defp max_by_item(list, name) when is_binary(name) and is_list(list) do
+    list ++ [%{name => name}]
+    |> Enum.map(&(&1[name]))
+    |> Enum.max_by(&_length/1)
+    |> _length
+  end
+  defp _length(v) when is_binary(v), do: String.length(v)
+  defp _length(v) when is_integer(v), do: v |> Integer.to_string |> _length
+
+  defp make_header_struct({count, name}), do: %{name: name, count: count}
+
+  defp _print_table(header, list) do
+    header
+    |> Enum.map(&_print_header/1)
+    |> IO.puts
+  end
+
+  defp _print_header(%{name: name, count: count}) do
+    String.ljust(name, count + 1)
+  end
+
+  defp _format_title("number"), do: "#"
+  defp _format_title(name), do: name
 end
