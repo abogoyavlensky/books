@@ -1,9 +1,14 @@
 defmodule Issues.GithubIssues do
+@moduledoc """
+Contains tools to fetch issues from github and handle response.
+"""
+
   @user_agent [{"User-Agent", "Elixir abogoyavlensky@gmail.com"}]
   @github_url Application.get_env(:issues, :github_url)
 
   def fetch(user, project) do
-    issues_url(user, project)
+    user
+    |> issues_url(project)
     |> HTTPoison.get(@user_agent)
     |> handle_response
   end

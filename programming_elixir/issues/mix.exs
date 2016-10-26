@@ -30,6 +30,7 @@ defmodule Issues.Mixfile do
     [
       {:httpoison, "~> 0.9.2"},
       {:jsx, "~> 2.8"},
+      {:credo, "~> 0.4.13", only: [:dev, :test]},
     ]
   end
 end
