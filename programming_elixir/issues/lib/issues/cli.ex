@@ -46,6 +46,8 @@ defmodule Issues.CLI do
     |> sort_into_ascending_order
     |> Enum.take(count)
     |> Issues.CustomTable.print_table(["number", "created_at", "title"])
+    # Uncomment to check book example
+    # |> Issues.TableFormatter.print_table(["number", "created_at", "title"])
   end
 
   def decode_response({:ok, body}) do
