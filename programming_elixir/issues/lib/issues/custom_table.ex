@@ -40,28 +40,24 @@ defmodule Issues.CustomTable do
 
   defp _collect_row(:header, header) do
     header
-    |> Enum.map(&_collect_cell/1)
-    |> Enum.join
+    |> Enum.map_join(@vertical, &_collect_cell/1)
   end
   defp _collect_row(:line, header) do
     header
-    |> Enum.map(&_collect_cell(%{name: String.duplicate(@line, &1[:count]),
-                                 count: &1[:count]},
-                                @corner))
-    |> Enum.join
+    |> Enum.map_join(@corner, &_collect_cell(%{name: String.duplicate(@line, &1[:count]),
+                                 count: &1[:count]}))
   end
   defp _collect_row(issue, header) do
     header
-    |> Enum.map(&_collect_cell(%{name: _to_string(issue[&1[:name]]),
-                                 count: &1[:count]}))
-    |> Enum.join
+    |> Enum.map_join(@vertical,
+                     &_collect_cell(%{name: _to_string(issue[&1[:name]]),
+                                      count: &1[:count]}))
   end
 
-  defp _collect_cell(%{name: name, count: count}, delimiter \\ @vertical) do
+  defp _collect_cell(%{name: name, count: count}) do
     name
     |> _format_title
     |> _get_cell(count)
-    |> _join_delimiter(delimiter)
   end
 
   defp _get_cell(word, count) do
@@ -70,8 +66,6 @@ defmodule Issues.CustomTable do
 
   defp _to_string(val) when is_integer(val), do: val |> Integer.to_string
   defp _to_string(val) when is_binary(val) , do: val
-
-  defp _join_delimiter(word, delimiter), do: word <> delimiter
 
   defp _format_title("number"), do: "#"
   defp _format_title(name), do: name
