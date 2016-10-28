@@ -108,8 +108,7 @@ defmodule Issues.CLI do
     header
     |> Enum.map(&_collect_cell(%{name: _to_string(issue[&1[:name]]),
                                  count: &1[:count]}))
-    |> Enum.reverse
-    |> Enum.reduce("", &(&1 <> &2))
+    |> Enum.join
   end
 
   defp _collect_cell(%{name: name, count: count}) do
@@ -141,9 +140,8 @@ defmodule Issues.CLI do
   defp _join_delimiter(word), do: word <> @delimiter
 
   defp _format_title("number"), do: "#"
-  defp _format_title("#"), do: "number"
   defp _format_title(name), do: name
 
-  defp _get_list_to_check_length(list, name), do: list ++ [%{name => name}]
   defp _get_list_to_check_length(list, "number"), do: list
+  defp _get_list_to_check_length(list, name), do: list ++ [%{name => name}]
 end
