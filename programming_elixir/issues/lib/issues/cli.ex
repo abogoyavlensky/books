@@ -6,8 +6,8 @@ defmodule Issues.CLI do
   """
 
   @default_count 4
-  @delimiter " | "
-  @corner "+"
+  @vertical " | "
+  @corner "-+-"
   @line "-"
 
 
@@ -96,12 +96,20 @@ defmodule Issues.CLI do
   end
 
   defp _collect_table(header, list) do
-    [_collect_row(header) | list |> Enum.map(&_collect_row(&1, header))]
+    [:header | [:line | list]]
+    |> Enum.map(&_collect_row(&1, header))
   end
 
-  defp _collect_row(header) do
+  defp _collect_row(:header, header) do
     header
     |> Enum.map(&_collect_cell/1)
+    |> Enum.join
+  end
+  defp _collect_row(:line, header) do
+    header
+    |> Enum.map(&_collect_cell(%{name: String.duplicate(@line, &1[:count]),
+                                 count: &1[:count]},
+                                @corner))
     |> Enum.join
   end
   defp _collect_row(issue, header) do
@@ -111,33 +119,21 @@ defmodule Issues.CLI do
     |> Enum.join
   end
 
-  defp _collect_cell(%{name: name, count: count}) do
+  defp _collect_cell(%{name: name, count: count}, delimiter \\ @vertical) do
     name
     |> _format_title
     |> _get_cell(count)
-    |> _join_delimiter
+    |> _join_delimiter(delimiter)
   end
 
   defp _get_cell(word, count) do
-    # word |> String.ljust(count - String.length(word))
     word |> String.ljust(count)
   end
 
   defp _to_string(val) when is_integer(val), do: val |> Integer.to_string
   defp _to_string(val) when is_binary(val) , do: val
 
-  # defp _join_rows(top, bottom), do: [top, bottom]
-
-  # defp _get_header(row, header) do
-  #   String.duplicate(@line, _count_line_len(header))
-  # end
-  #
-  # defp _count_line_len(header) do
-  #   header
-  #   |> Enum.reduce(0, &(&1[:count] + &2))
-  # end
-
-  defp _join_delimiter(word), do: word <> @delimiter
+  defp _join_delimiter(word, delimiter), do: word <> delimiter
 
   defp _format_title("number"), do: "#"
   defp _format_title(name), do: name
