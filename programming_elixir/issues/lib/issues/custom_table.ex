@@ -67,8 +67,17 @@ defmodule Issues.CustomTable do
   defp _to_string(val) when is_integer(val), do: val |> Integer.to_string
   defp _to_string(val) when is_binary(val) , do: val
 
-  defp _format_title("number"), do: "#"
-  defp _format_title(name), do: name
+  @doc """
+  Return sign "#" instead of "number" string or return the value themselvs.
+  
+  ## Example
+    iex> Issues.CustomTable._format_title("number")
+    "#"
+    iex> Issues.CustomTable._format_title("word")
+    "word"
+  """
+  def _format_title("number"), do: "#"
+  def _format_title(name), do: name
 
   defp _get_list_to_check_length(list, "number"), do: list
   defp _get_list_to_check_length(list, name), do: list ++ [%{name => name}]
