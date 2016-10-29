@@ -70,11 +70,13 @@ defmodule Issues.CustomTable do
   @doc """
   Return sign "#" instead of "number" string or return the value themselvs.
   
-  ## Example
-    iex> Issues.CustomTable._format_title("number")
-    "#"
-    iex> Issues.CustomTable._format_title("word")
-    "word"
+  ## Examples
+  
+      iex> Issues.CustomTable._format_title("number")
+      "#"
+
+      iex> Issues.CustomTable._format_title("word")
+      "word"
   """
   def _format_title("number"), do: "#"
   def _format_title(name), do: name
