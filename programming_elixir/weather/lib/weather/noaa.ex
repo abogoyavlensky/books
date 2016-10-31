@@ -6,22 +6,34 @@ defmodule Weather.NOAA do
   
   @url "http://w1.weather.gov/xml/current_obs/"
     
-  
-  def fetch(location) do
-  location
-  |> noaa_url
-  |> HTTPoison.get
-  |> handle_response
-  |> IO.puts
-    
+  @doc """
+  Fetchs xml data from NOAA source site by given station_id id.
+  """
+  def fetch(station_id) do
+    station_id
+    |> noaa_url
+    |> HTTPoison.get
+    |> handle_response      
   end
+
+  @doc """
+  Returns NOAA url for single station_id.
   
-  def noaa_url(location), do: "#{@url}#{String.upcase(location)}.xml"
-  
+  ## Examples
+      
+      iex> Weather.NOAA.noaa_url "KdTo"
+      http://w1.weather.gov/xml/current_obs/KDTO.xml
+  """
+  def noaa_url(station_id), do: "#{@url}#{String.upcase(station_id)}.xml"
+
+  @doc """
+  Handle http GET response which contains data or handle an error returned.
+  """
   def handle_response({:ok, data}) do
-    data.body
+    data.body    
   end
-  def handle_response({:error, reason}) do
-    reason
-  end  
+  def handle_response({:error, _}) do
+    IO.puts "Error has appeared while fetching from NOAA."
+    System.halt(2)
+  end
 end
