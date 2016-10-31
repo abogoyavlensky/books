@@ -13,7 +13,10 @@ defmodule Weather.CLI do
     station_id
     |> Weather.NOAA.fetch
     |> parse_response
-    |> IO.inspect
+    # |> IO.inspect
+    |> get_result_list
+    # |> Enum.each(&IO.inspect/1)
+    |> Enum.each(&IO.puts/1)
   end
 
   @doc """
@@ -59,5 +62,36 @@ defmodule Weather.CLI do
   def parse_param(name, value, ""), do: %{name: name, value: value, extra: ""}
   def parse_param(name, value, extra) do
     %{name: name, value: value, extra: extra}
+  end
+  
+  def get_result_list(data) do
+    data[:items]
+    |> get_items_list
+  end
+  
+  def get_items_list(items) do
+    len = get_max_len_of_names(items)
+    IO.puts len
+    items
+    |> Map.values
+    |> Enum.map(&row_join(&1, len)) 
+  end
+  
+  def get_max_len_of_names(items) do
+    len = items
+    |> Map.values
+    |> Enum.map(&String.length(&1.name))
+    |> Enum.max    
+  end
+  
+  def row_join(%{name: name, value: value, extra: ""}, len) do
+    pad = len - String.length(name)
+    name = String.pad_leading(name, pad)
+    "#{name}: #{value}"
+  end
+  def row_join(%{name: name, value: value, extra: extra}, len) do
+    pad = len - String.length(name)
+    name = String.pad_leading(name, pad)
+    "#{name}: #{value} #{extra}\n"    
   end
 end
