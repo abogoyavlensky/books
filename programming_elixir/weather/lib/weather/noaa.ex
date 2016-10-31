@@ -8,7 +8,7 @@ defmodule Weather.NOAA do
     
   @doc """
   Fetchs xml data from NOAA source site by given station_id id.
-  """
+  """ 
   def fetch(station_id) do
     station_id
     |> noaa_url
@@ -29,11 +29,13 @@ defmodule Weather.NOAA do
   @doc """
   Handle http GET response which contains data or handle an error returned.
   """
-  def handle_response({:ok, data}) do
-    data.body    
+  def handle_response({:ok, %{:status_code => 200, :body => body}}), do: body
+  def handle_response({:ok, %{:status_code => status, :body => body}}) do
+    IO.puts "Error with status #{status} has happend while fetching from NOAA."
+    System.halt(2)    
   end
   def handle_response({:error, _}) do
-    IO.puts "Error has appeared while fetching from NOAA."
+    IO.puts "Error has happend while fetching from NOAA."
     System.halt(2)
   end
 end
