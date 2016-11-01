@@ -36,6 +36,7 @@ defmodule Weather.Mixfile do
       {:httpoison, "~> 0.9.2"},
       {:sweet_xml, "~> 0.6.2"},
       {:credo, "~> 0.5.1", only: [:dev, :test]},
+      {:ex_doc, "~> 0.14.3", only: [:dev]},
     ]
   end
   
