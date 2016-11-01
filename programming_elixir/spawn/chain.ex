@@ -1,14 +1,14 @@
 defmodule Chain do
   def counter(next_pid) do
     receive do
-      n -> send nex_pid, n + 1
+      n -> send next_pid, n + 1
     end
   end
   
   def create_process(n) do
     last = Enum.reduce 1..n, self,
             fn (_, send_to) ->
-              spawn(Cahin, :counter, [send_to])
+              spawn(Chain, :counter, [send_to])
             end
     
     # start the count by sending
