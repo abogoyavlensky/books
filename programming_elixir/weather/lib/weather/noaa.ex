@@ -3,6 +3,8 @@ defmodule Weather.NOAA do
   Clinet API for National Oceanic and Atmospheric Administration's 
   http://w1.weather.gov/xml/current_obs
   """
+
+  require Logger
   
   @url "http://w1.weather.gov/xml/current_obs/"
     
@@ -10,6 +12,7 @@ defmodule Weather.NOAA do
   Fetchs xml data from NOAA source site by given station_id id.
   """ 
   def fetch(station_id) do
+    Logger.info "Fetching #{station_id} data"
     station_id
     |> noaa_url
     |> HTTPoison.get
@@ -34,13 +37,18 @@ defmodule Weather.NOAA do
       iex> Weather.NOAA.handle_response(resp)
       "body"
   """
-  def handle_response({:ok, %{:status_code => 200, :body => body}}), do: body
+  def handle_response({:ok, %{:status_code => 200, :body => body}}) do
+    Logger.info "Successfull response"
+    Logger.debug(fn -> inspect(body) end) 
+    body
+  end 
   def handle_response({:ok, %{:status_code => status, :body => _body}}) do
-    IO.puts "Error with status #{status} has happend while fetching from NOAA."
+    Logger.error("Error with status #{status} has happend while 
+                  fetching from NOAA.")
     System.halt(2)    
   end
   def handle_response({:error, _}) do
-    IO.puts "Error has happend while fetching from NOAA."
+    Logger.error "Error has happend while fetching from NOAA."
     System.halt(2)
   end
 end
