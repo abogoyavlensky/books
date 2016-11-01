@@ -13,9 +13,7 @@ defmodule Weather.CLI do
     station_id
     |> Weather.NOAA.fetch
     |> parse_response
-    # |> IO.inspect
     |> get_result_list
-    # |> Enum.each(&IO.inspect/1)
     |> Enum.each(&IO.puts/1)
   end
 
@@ -65,13 +63,19 @@ defmodule Weather.CLI do
   end
   
   def get_result_list(data) do
-    data[:items]
-    |> get_items_list
+    len = get_max_len_of_names(data[:items])
+    results = data[:items] |> get_items_list(len)
+    
+    title = to_string(data[:location])
+    title_len = len + div(String.length(title), 2) + 2
+    coord = "(#{data[:station_id]}) #{data[:lat]}N #{data[:lng]}W"
+    coord_len = len + div(String.length(coord), 2) + 2
+    results = [String.pad_leading(coord, coord_len), "\n" | results]
+    
+    [String.pad_leading(title, title_len) | results]
   end
   
-  def get_items_list(items) do
-    len = get_max_len_of_names(items)
-    IO.puts len
+  def get_items_list(items, len) do    
     items
     |> Map.values
     |> Enum.map(&row_join(&1, len)) 
@@ -83,15 +87,29 @@ defmodule Weather.CLI do
     |> Enum.map(&String.length(&1.name))
     |> Enum.max    
   end
+
+  @doc """
+  Returns string for row from item's values.
   
+  ## Examples
+      iex> Weather.CLI.row_join(%{name: "", value: "value", extra: ""}, 5)
+      "       value"
+      
+      iex> Weather.CLI.row_join(%{name: "name", value: "value", extra: ""}, 5)
+      " name: value"
+
+      iex> Weather.CLI.row_join(%{name: "name", value: "value", extra: "extra"}, 
+      ...> 5)
+      " name: value extra"
+      
+  """
+  def row_join(%{name: "", value: value, extra: ""}, len) do
+    "#{String.pad_leading("", len)}  #{value}"
+  end  
   def row_join(%{name: name, value: value, extra: ""}, len) do
-    pad = len - String.length(name)
-    name = String.pad_leading(name, pad)
-    "#{name}: #{value}"
+    "#{String.pad_leading(name, len)}: #{value}"
   end
   def row_join(%{name: name, value: value, extra: extra}, len) do
-    pad = len - String.length(name)
-    name = String.pad_leading(name, pad)
-    "#{name}: #{value} #{extra}\n"    
+    "#{String.pad_leading(name, len)}: #{value} #{extra}"
   end
 end
