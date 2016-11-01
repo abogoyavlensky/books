@@ -28,9 +28,14 @@ defmodule Weather.NOAA do
 
   @doc """
   Handle http GET response which contains data or handle an error returned.
+  
+  ## Examples
+      iex> resp = {:ok, %{:status_code => 200, :body => "body"}}
+      iex> Weather.NOAA.handle_response(resp)
+      "body"
   """
   def handle_response({:ok, %{:status_code => 200, :body => body}}), do: body
-  def handle_response({:ok, %{:status_code => status, :body => body}}) do
+  def handle_response({:ok, %{:status_code => status, :body => _body}}) do
     IO.puts "Error with status #{status} has happend while fetching from NOAA."
     System.halt(2)    
   end

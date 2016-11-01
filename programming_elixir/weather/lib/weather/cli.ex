@@ -56,12 +56,25 @@ defmodule Weather.CLI do
     )
   end
   
+  @doc """
+  Parses param from xpath.
+  
+  ## Examples
+      iex> Weather.CLI.parse_param("name", "value")
+      %{name: "name", value: "value", extra: ""}
+      
+      iex> Weather.CLI.parse_param("name", "value", "extra")
+      %{name: "name", value: "value", extra: "extra"}      
+  """
   def parse_param(name, value, extra \\ "")
   def parse_param(name, value, ""), do: %{name: name, value: value, extra: ""}
   def parse_param(name, value, extra) do
     %{name: name, value: value, extra: extra}
   end
   
+  @doc"""
+  Returns list of all string including title to display for user.
+  """
   def get_result_list(data) do
     len = get_max_len_of_names(data[:items])
     results = data[:items] |> get_items_list(len)
@@ -75,12 +88,23 @@ defmodule Weather.CLI do
     [String.pad_leading(title, title_len) | results]
   end
   
+  @doc """
+  Returns list of string from items to display for user.
+  """
   def get_items_list(items, len) do    
     items
     |> Map.values
     |> Enum.map(&row_join(&1, len)) 
   end
   
+  @doc """
+  Returns max length of names through the weather fields (items).
+  
+  ## Examples
+      iex> items = %{first: %{name: "Test"}, second: %{name: "Longer"}}
+      iex> Weather.CLI.get_max_len_of_names(items)
+      6
+  """
   def get_max_len_of_names(items) do
     len = items
     |> Map.values
