@@ -5,6 +5,9 @@ defmodule Weather.Mixfile do
     [app: :weather,
      version: "0.1.0",
      elixir: "~> 1.3",
+     name: "Weather",
+     source_url: "https://github.com/pragdave/issues",
+     escript: escript_config,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
@@ -34,5 +37,9 @@ defmodule Weather.Mixfile do
       {:sweet_xml, "~> 0.6.2"},
       {:credo, "~> 0.5.1", only: [:dev, :test]},
     ]
+  end
+  
+  def escript_config do
+    [main_module: Weather.CLI]
   end
 end
