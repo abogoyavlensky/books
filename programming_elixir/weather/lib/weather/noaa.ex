@@ -22,7 +22,7 @@ defmodule Weather.NOAA do
   ## Examples
       
       iex> Weather.NOAA.noaa_url "KdTo"
-      http://w1.weather.gov/xml/current_obs/KDTO.xml
+      "http://w1.weather.gov/xml/current_obs/KDTO.xml"
   """
   def noaa_url(station_id), do: "#{@url}#{String.upcase(station_id)}.xml"
 

@@ -5,10 +5,37 @@ defmodule Weather.CLI do
   
   import SweetXml
   
+  @doc"""
+  Main function witch starts the whole programm to fetch and display weather 
+  data from NOAA for any allowed location.
+  """
+  def main(argv) do
+    argv
+    |> parse_args
+    |> process
+  end
+  
+  @doc """
+  Parses args from command line.
+  """
+  def parse_args(argv) do
+    parsed = OptionParser.parse(argv, strict: [help: :boolean, 
+                                               station_id: :string],
+                                      aliases: [h: :help, s: :station_id])
+    case parsed do
+      {[help: true], _, _} -> :help
+      {[station_id: station_id], _, _} -> station_id
+      _ -> :help
+    end
+  end  
+  
   @doc """
   Processes data flow from fetching xml data for single station_id to displaing 
   it as pretty and human readable table.
   """
+  def process(:help) do
+    IO.puts "usage: weather -s <station_id>"
+  end
   def process(station_id) do
     station_id
     |> Weather.NOAA.fetch
@@ -106,7 +133,7 @@ defmodule Weather.CLI do
       6
   """
   def get_max_len_of_names(items) do
-    len = items
+    items
     |> Map.values
     |> Enum.map(&String.length(&1.name))
     |> Enum.max    
