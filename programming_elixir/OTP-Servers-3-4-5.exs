@@ -1,4 +1,4 @@
-defmodule Stack do
+defmodule Stack.Server do
   use GenServer
 
   # External API implementoin
@@ -40,5 +40,20 @@ defmodule Stack do
     IO.puts "Stack has been terminated."
     IO.puts "Reason: #{inspect reason}"
     IO.puts "State of the Stack: #{inspect stack}"
+  end
+end
+
+
+defmodule Stack do
+  use Application
+
+  def start() do
+    import Supervisor.Spec, warn: false
+    children = [
+      worker(Stack.Server, [[123, "cat"]]),
+    ]
+
+    opts = [strategy: :one_for_one, name: Stack.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 end
