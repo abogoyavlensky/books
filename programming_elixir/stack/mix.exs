@@ -13,7 +13,11 @@ defmodule Stack.Mixfile do
   end
 
   def application do
-    [mod: {Stack, []}]
+    [
+      mod: {Stack, []},
+      env: [initial_stack: [123, "cat"]],
+      registered: [:stack],
+    ]
   end
 
   def deps do
