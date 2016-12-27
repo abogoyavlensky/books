@@ -6,7 +6,9 @@ end
 
 defimpl Caesar, for: [BitString, List] do
   @first ?a - 1
+  @first_s 'a'
   @last ?z
+  @last_s 'z'
   @rot13_shift 13
 
   def encrypt(string, shift) when is_list(string) do
@@ -24,7 +26,7 @@ defimpl Caesar, for: [BitString, List] do
     encrypt(string, @rot13_shift)
   end
 
-  def _shift(char, shift) when @first < char < @last do
+  def _shift(char, shift) when @first_s < char < @last_s do
     result = char + shift
     delta = result - @last
     if delta > 0 do
@@ -49,7 +51,7 @@ defmodule WordList do
     Agent.start_link(fn -> [] end, name: @name)
   end
 
-  def load_from_files(dir) do
+  def load_from_dir(dir) do
     {:ok, file_names} = File.ls(dir)
     file_names
     |> Stream.map(fn name -> Task.async(fn -> add_words("#{dir}/#{name}") end) end)
@@ -78,14 +80,13 @@ defmodule WordList do
     Caesar.rot13(word) in list
   end
   defp do_keyword(word) do
-    # %{word => Caesar.rot13(word)}
-    word
+    %{word => Caesar.rot13(word)}
   end
 end
 
 
 WordList.start_link
-WordList.load_from_files "words"
-WordList.get_matches
+WordList.load_from_dir "words"
+IO.inspect WordList.get_matches
 
 # IO.puts Caesar.rot13 "ärtner"
