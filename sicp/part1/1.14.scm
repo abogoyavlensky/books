@@ -1,10 +1,10 @@
 ;Построить дерево в консоли
 ;ввиде последовательно представленого списка вызовов процедур.
-;Код взять из комментария:
+;Код взят из комментария:
 ;http://sicp.sergeykhenkin.com/2007/08/27/sicp-exercise-solution-1-14/
 ;Ответ на вопрос: сложность алгоритма O(n^k), где n - сумма,
 ;k - количество номиналов; порядок роста памяти O(n), n - сумма.
-;
+
 (define (mknode amount kinds-of-coins left right)
   (list amount kinds-of-coins left right))
 
