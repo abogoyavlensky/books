@@ -1,4 +1,4 @@
-(load "common/math.scm")
+(define (square x) (* x x))
 
 (define (fast_pow b n)
   (cond ((= n 0) 1)
@@ -8,7 +8,7 @@
 (define (iter_fast_pow x p)
   (define (iter a b n)
     (cond ((= n 0) a)
-          ((even? n) (iter a (square b) (/ n 2) ))
+          ((even? n) (iter a (square b) (/ n 2)))
           (else (iter (* a b) b (- n 1)))))
   (iter 1 x p))
 
