@@ -1,4 +1,4 @@
-(load "common/math.scm")
+(define (square x) (* x x))
 
 (define (fib n)
   (fib-iter 1 0 0 1 n))
@@ -11,11 +11,11 @@
                    (pp p q)
                    (qq p q)
                    (/ count 2)))
-         (else (fib-iter (+ (* b q) (* a q) (* a p))
-                         (+ (* b p) (* a q))
-                         p
-                         q
-                         (- count 1)))))
+        (else (fib-iter (+ (* b q) (* a q) (* a p))
+                        (+ (* b p) (* a q))
+                        p
+                        q
+                        (- count 1)))))
 
 
 (define (pp p q)
