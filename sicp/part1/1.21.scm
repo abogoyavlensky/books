@@ -1,4 +1,4 @@
-(load "common/math.scm")
+(define (square x) (* x x))
 
 (define (divides? a b)
   (= (remainder b a) 0))
@@ -12,6 +12,6 @@
   (find-divisor n 2))
 
 
-;(print (smallest-divisor 199))
-;(print (smallest-divisor 1999))
-;(print (smallest-divisor 19999))
+(print (smallest-divisor 199))  ; 199
+(print (smallest-divisor 1999))  ; 1999
+(print (smallest-divisor 19999))  ; 7
