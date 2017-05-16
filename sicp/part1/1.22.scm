@@ -33,6 +33,7 @@
   (newline)
   #t)
 
+; Поиск первых limit простых чисел в интервале от begin до end
 (define (search-for-primes begin end limit)
   (define (find begin counter)
     (define current-prime? (timed-prime-test begin))
@@ -44,7 +45,7 @@
   (find begin 0)
   (newline))
 
-
+; Примеры
 (search-for-primes 1 1000 3)
 (search-for-primes 1000 10000 3)
 (search-for-primes 10000 100000 3)
