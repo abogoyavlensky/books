@@ -23,6 +23,7 @@
 
 ; Поиск наименьшего делителя
 (define (square x) (* x x))
+
 (define (divides? a b)
   (= (remainder b a) 0))
 
