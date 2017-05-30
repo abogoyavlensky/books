@@ -13,8 +13,7 @@
 
 
 (define (simpson f a b n)
-  (define (h)
-    (/ (- b a) n))
+  (define h (/ (- b a) n))
   (define (inc x)
     (+ x 1))
   (define (get-k k)
@@ -23,9 +22,9 @@
           (else 4)))
   (define (term k)
     (* (get-k k)
-       (f (+ a (* (h) k)))))
+       (f (+ a (* h k)))))
   (* (sum term 0 inc n)
-     (/ (h) 3.0)))
+     (/ h 3.0)))
 
 
 (print (integral cube 0 1 0.01))
