@@ -1,6 +1,6 @@
 ;Вычисление кубического корня методом Ньютона.
-(load "common/math.scm")
-
+(define (square x) (* x x))
+(define (cube x) (* x x x))
 (define (good_enough? guess x precise)
   (>= precise
       (abs (- x
@@ -9,8 +9,8 @@
 (define (improve guess x)
   (/ (+ (/ x
             (square guess))
-         (* 2 guess))
-      3))
+        (* 2 guess))
+     3))
 
 (define (sqrt3_iter guess x)
   (if (good_enough? guess x 0.0001)
