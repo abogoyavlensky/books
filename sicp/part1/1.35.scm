@@ -14,4 +14,4 @@
                1.0))
 
 (print (fixed-point cos 1.0))
-(print fi)
+(print fi)  ; =1.6180344
