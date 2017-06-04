@@ -37,3 +37,28 @@
 (print (sqrt-simple 25))  ; =5.000023178253949
 (print (sqrt 9))  ; =3.00009155413138
 (print (sqrt 25))  ; =5.000023178253949
+
+
+(define (fixed-point-simple f first-guess)
+  (define tolerance 0.00001)
+  (define (close-enough? v1 v2)
+    (< (abs (- v1 v2)) tolerance))
+  (define (try guess)
+    (let ((next (f guess)))
+      (if (close-enough? guess next)
+          next
+          (try (f next)))))
+  (try first-guess))
+
+; Нахождение неподвижной точки с помощью общего метода итеративного улучшения
+(define (fixed-point f first-guess)
+  (define tolerance 0.00001)
+  (define (close-enough? guess)
+    (< (abs (- guess (f guess))) tolerance))
+  (define (improve guess)
+    (f guess))
+  ((iterative-imporove close-enough? improve) first-guess))
+
+
+(print (fixed-point-simple cos 1.0))  ; =0.7390822985224023
+(print (fixed-point cos 1.0))  ; =0.7390822985224023
