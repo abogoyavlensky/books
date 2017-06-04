@@ -1,7 +1,10 @@
 ; Получилось сделать два разных представления прямоугольника.
 ; Первое задается двумя точками, а второе двумя отрезками. Для того, чтобы
-; сделать возможным применение функции area и perimetr более общим
+; сделать возможным применение функции area и perimeter более общим
 ; понадобилось использовать возможность определять тип переданного объекта.
+; Но уровень абстрации получения точек сегмента "протек" на уровень получения
+; точек прямоугольника. Пока у нас нет более мощных средств манипулированиями
+; типами видимо это допустимо.
 
 (define (make-point x y) (cons x y))
 (define (x-point p) (car p))
@@ -17,17 +20,20 @@
 ; Уровень представления (первый вариант)
 (define (make-rectangle left-low-corner-p right-up-corner-p)
   (cons left-low-corner-p right-up-corner-p))
-(define (left-low-corner rectangle) (car rectangle))
-(define (right-up-corner rectangle) (cdr rectangle))
+(define (left-low-corner rectangle)
+  (let ((left (car rectangle)))
+    (if (pair? (car left))
+        (car left)
+        left)))
+(define (right-up-corner rectangle)
+  (let ((right (cdr rectangle)))
+    (if (pair? (cdr right))
+        (cdr right)
+        right)))
 
 ; Уровень представления (второй вариант)
 (define (make-segment start-p end-p) (cons start-p end-p))
-(define (start-segment segment) (car segment))
-(define (end-segment segment) (cdr segment))
-
-(define (make-rec left-s up-s)
-  (cons (start-segment left-s)
-        (end-segment up-s)))
+(define (make-rec left-s up-s) (cons left-s up-s))
 
 ; Уровень использования
 (define (area rectangle)
@@ -36,7 +42,7 @@
      (- (y-point (right-up-corner rectangle))
         (y-point (left-low-corner rectangle)))))
 
-(define (perimetr rectangle)
+(define (perimeter rectangle)
   (+ (* (- (x-point (right-up-corner rectangle))
            (x-point (left-low-corner rectangle)))
         2)
@@ -49,11 +55,11 @@
 (define right-p (make-point 5 4))
 (define r (make-rectangle left-p right-p))
 (print (area r))  ; =8
-(print (perimetr r))  ; =12
+(print (perimeter r))  ; =12
 
 (define left-up-p (make-point 1 4))
 (define left-s (make-segment left-p left-up-p))
 (define right-s (make-segment left-up-p right-p))
 (define r (make-rec left-s right-s))
 (print (area r))  ; =8
-(print (perimetr r))  ; =12
+(print (perimeter r))  ; =12
