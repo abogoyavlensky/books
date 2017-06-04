@@ -1,0 +1,28 @@
+(define (make-point x y) (cons x y))
+(define (x-point p) (car p))
+(define (y-point p) (cdr p))
+(define (print-point p)
+  (display "(")
+  (display (x-point p))
+  (display ",")
+  (display (y-point p))
+  (display ")")
+  (newline))
+
+(define (make-segment start-p end-p) (cons start-p end-p))
+(define (start-segment segment) (car segment))
+(define (end-segment segment) (cdr segment))
+
+(define (midpoint-segment segment)
+  (make-point (/ (+ (x-point (start-segment segment))
+                    (x-point (end-segment segment)))
+                 2)
+              (/ (+ (y-point (start-segment segment))
+                    (y-point (end-segment segment)))
+                2)))
+
+
+(define p1 (make-point 6.4 3))
+(define p2 (make-point -10.7 4))
+(define s (make-segment p1 p2))
+(print-point (midpoint-segment s))  ; =(–2.1499999999999994, 3.5)
