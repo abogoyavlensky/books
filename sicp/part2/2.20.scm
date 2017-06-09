@@ -1,0 +1,12 @@
+(define (same-parity h . t)
+  (define (filter l result)
+    (let ((xe? (even? h)))
+      (cond ((null? l) result)
+            ((or (and xe? (even? (car l)))
+                 (and (not xe?) (not (even? (car l)))))
+             (filter (cdr l) (append result (list (car l)))))
+            (else (filter (cdr l) result)))))
+  (filter t (list h)))
+
+(print (same-parity 1 2 3 4 5 6 7))  ; =(1 3 5 7)
+(print (same-parity 2 3 4 5 6 7))  ; =(2 4 6)
