@@ -1,21 +1,26 @@
+;г При изменении определении конструткоров с list на cons пришлось изменить
+; два метода для получения вторых элементов пары. Так как для получения
+; второго элемента списка необходимо применить последовательно cdr и car.
+; А для получения второго эдемента пары достаточно одного вызова cdr.
+
 (define (make-mobile left right)
-  (list left right))
+  (cons left right))
 
 (define (make-branch len structure)
-  (list len structure))
+  (cons len structure))
 
 ;a
 (define (left-branch mobile)
   (car mobile))
 
 (define (right-branch mobile)
-  (car (cdr mobile)))
+  (cdr mobile))
 
 (define (branch-len branch)
   (car branch))
 
 (define (branch-structure branch)
-  (car (cdr branch)))
+  (cdr branch))
 
 ;б
 (define (total-weight structure)
@@ -54,8 +59,8 @@
                              (make-branch 3 2)))
 
 
-(print mobile1)  ; =((1 ((2 3) (5 5))) (3 2))
+(print mobile1)  ; =((1 (2 . 3) 5 . 5) 3 . 2)
 (print (total-weight mobile1))  ; =10
-(print mobile2)  ; =((1 ((2 4) (4 2))) (3 2))
+(print mobile2)  ; =((1 (2 . 4) 4 . 2) 3 . 2))
 (print (total-weight mobile2))  ; =8
 (print (balance? mobile2))  ; =#t
