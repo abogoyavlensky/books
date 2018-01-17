@@ -22,22 +22,25 @@
            (filter pred (cdr sequence))))
     (else (filter pred (cdr sequence)))))
 
-(define (check-sum? triplet number)
-  (= (accumulate + 0 triplet) number))
+(define (check-sum? triplet)
+  (= (accumulate + 0 triplet) 8))
 
-; TODO: need to update for triplets
 (define (unique-triplets n)
   (flatmap
     (lambda (i)
-      (map (lambda (j) (list i j))
-           (enumerate-interval 1 (- i 1))))
+      (flatmap
+        (lambda (k)
+          (map (lambda (j) (list i j k))
+               (enumerate-interval 1 (- k 1))))
+        (enumerate-interval 1 (- i 1))))
     (enumerate-interval 1 n)))
 
+(define (make-triplet-sum triplet)
+  (append triplet (list (accumulate + 0 triplet))))
 
-; (define (make-triplet-sum pair)
-;   (list (car pair) (cadr pair) (+ (car pair) (cadr pair))))
+(define (check-sum-triplets n)
+  (map make-triplet-sum
+       (filter check-sum?
+               (unique-triplets n))))
 
-; (define (check-sum-triplets n)
-;   (map make-pair-sum
-;        (filter prime-sum?
-;                (unique-pairs n))))
+(print (check-sum-triplets n))
