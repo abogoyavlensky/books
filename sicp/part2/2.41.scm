@@ -22,8 +22,8 @@
            (filter pred (cdr sequence))))
     (else (filter pred (cdr sequence)))))
 
-(define (check-sum? triplet)
-  (= (accumulate + 0 triplet) 8))
+(define (check-sum? triplet s)
+  (= (accumulate + 0 triplet) s))
 
 (define (unique-triplets n)
   (flatmap
@@ -38,9 +38,9 @@
 (define (make-triplet-sum triplet)
   (append triplet (list (accumulate + 0 triplet))))
 
-(define (check-sum-triplets n)
+(define (check-sum-triplets n s)
   (map make-triplet-sum
-       (filter check-sum?
-               (unique-triplets n))))
+      (filter (lambda (x) (check-sum? x s))
+              (unique-triplets n))))
 
-(print (check-sum-triplets n))
+(print (check-sum-triplets 6 8))
