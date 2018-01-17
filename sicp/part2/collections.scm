@@ -1,4 +1,4 @@
-; Accumulate sequence in single value by operation with initial value
+; Retruns accumulate sequence in single value by operation with initial value
 (define (accumulate op initial sequence)
   (if (null? sequence)
     initial
